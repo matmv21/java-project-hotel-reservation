@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-// SOLUÇÃO MUITO RUIM - Algumas informaçõed deveriam ter sido declaradas na classe Reservation.
+// SOLUÇÃO RUIM - Algumas informações foram declaradas na classe Reservation.
 
 public class Program {
     public static void main(String[] args) throws ParseException {
@@ -36,13 +36,10 @@ public class Program {
             System.out.print("Check-Out date (dd/MM/yyyy): ");
             checkOut = sdf.parse(sc.next());
 
-            Date now = new Date();
-            if (checkIn.before(now) || checkOut.after(now)){
-                System.out.println("Error in reservation: Updates in reservation dates must be future dates.");
-            } else if (!checkOut.after(checkIn)) {
-                System.out.print("Error in reservation: Check-Out date must be after Check-In date.");
+            String error = reservation.updateDates(checkIn, checkOut);
+            if (error != null){
+                System.out.print("Error in reservation: " + error);
             } else {
-                reservation.updateDates(checkIn, checkOut);
                 System.out.print("RESERVATION: " + reservation);
             }
         }
